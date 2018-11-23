@@ -1,6 +1,8 @@
 Jogo do robo / Jogo de mimica
 ===
 
+---
+
 O jogo
 ---
 
@@ -52,3 +54,4 @@ void testeDeFinal(){
     }
 }
 ```
+---
