@@ -3,14 +3,12 @@ Clock clock;
 Articulacao player, pose;
 FloatList angulosPlayer, angulosPose;
 boolean[] teclas;
-
-
+boolean state, pstate;
 PrintWriter criacaoPose;
-
 
 void setup() {
   fullScreen();
-  frameRate(10);
+  //frameRate(10);
   clock = new Clock();
   clock.start();
   tempoTotal = 60;
@@ -43,61 +41,62 @@ void draw() {
   if(tempo - clock.second() <= 0){
     testeDeFinal(); //<>//
   }
-}
-
-void keyPressed() {
-  if (key == CODED) {
-    if (keyCode == UP) {        //Proxima articulacao: artAtual + 1
-      teclas[2] = true;
-    } else if(keyCode == DOWN){  //Articulacao anterior: artAtual - 1   
-      teclas[1] = true;
-    }
-  }else{
-    if(key == ' '){             //Rotate artAtual    
-      teclas[0] = true;
-    }
-    if(key == 'c'){
-      testeDeFinal();
-    }
-
-    if(key == 'a'){
-      criacaoPose.flush();
-      criacaoPose.close();
-      exit();
-    }
-    if(key == 'b'){
-    angulosPlayer.append(player.angle1);
-    angulosPlayer.append(player.angle2);
-    angulosPlayer.append(player.angle3);
-    angulosPlayer.append(player.angle4);
-    angulosPlayer.append(player.angle5);
-    angulosPlayer.append(player.angle6);
-    angulosPlayer.append(player.angle7);
-    angulosPlayer.append(player.angle8);
-    angulosPlayer.append(player.angle9);
-    angulosPlayer.append(player.angle10);
-    angulosPlayer.append(player.angle11);
-    angulosPlayer.append(player.angle12);
-    angulosPlayer.append(player.angle13);
-    angulosPlayer.append(player.angle14);
-    angulosPlayer.append(player.angle15);
-      for(int i = 0; i < 15; i++){
-        criacaoPose.println("pose.angle" + (i + 1) + " = " + angulosPlayer.get(i) + ";");
+  
+  // Sistema de teclas (previni a repetição se a tecla for segurada)
+  state = false;
+  state = keyPressed;
+  if (keyPressed && state != pstate) {
+    if (key == CODED) {
+      if (keyCode == UP) {        //Proxima articulacao: artAtual + 1
+        teclas[2] = true;
       }
-      criacaoPose.println();
-    angulosPlayer.clear();
+      if(keyCode == DOWN){  //Articulacao anterior: artAtual - 1   
+        teclas[1] = true;
+      }
+    }else{
+      if(key == ' '){             //Rotate artAtual    
+        teclas[0] = true;
+      }
+      if(key == 'c'){
+        testeDeFinal();
+      }
+  
+      if(key == 'a'){
+        criacaoPose.flush();
+        criacaoPose.close();
+        exit();
+      }
+      if(key == 'b'){
+      angulosPlayer.append(player.angle1);
+      angulosPlayer.append(player.angle2);
+      angulosPlayer.append(player.angle3);
+      angulosPlayer.append(player.angle4);
+      angulosPlayer.append(player.angle5);
+      angulosPlayer.append(player.angle6);
+      angulosPlayer.append(player.angle7);
+      angulosPlayer.append(player.angle8);
+      angulosPlayer.append(player.angle9);
+      angulosPlayer.append(player.angle10);
+      angulosPlayer.append(player.angle11);
+      angulosPlayer.append(player.angle12);
+      angulosPlayer.append(player.angle13);
+      angulosPlayer.append(player.angle14);
+      angulosPlayer.append(player.angle15);
+        for(int i = 0; i < 15; i++){
+          criacaoPose.println("pose.angle" + (i + 1) + " = " + angulosPlayer.get(i) + ";");
+        }
+        criacaoPose.println();
+      angulosPlayer.clear();
+      }
+  
     }
-
+  } else {
+    teclas[0] = false;
+    teclas[1] = false;
+    teclas[2] = false;
   }
-}
+  pstate = state;
 
-void keyReleased(){
-  if(key == CODED){
-    if(keyCode == DOWN)     teclas[1] = false;
-    if(keyCode == UP)       teclas[2] = false;
-  } else{
-    if(key == ' ')          teclas[0] = false;  
-  }
 }
 
 void testeDeFinal(){
