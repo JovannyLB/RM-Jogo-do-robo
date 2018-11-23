@@ -22,7 +22,7 @@ class Articulacao{
   float angle9, angle10, angle11, angle12, angle13, angle14, angle15;
   PShape formaPelvis, formaCabeca;
   Articulacao(int x, int y, boolean move){
-    y1 = y; x1 =  x;angle1 = 0; //<>//
+    y1 = y; x1 =  x;angle1 = 0;
     x2 = 40; y2 = 0; angle2 = PI/2;
     x3 = -40; y3 = 0; angle3 = PI/2;
     x4 = 120; y4 = 0; angle4 = 0;
