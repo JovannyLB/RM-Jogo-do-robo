@@ -21,10 +21,7 @@ void setup() {
   angulosPose = new FloatList();
   player = new Articulacao(width/4,height/2,true);
   pose = new Articulacao(width/4*3,height/2,false);
-  
-
   criacaoPose = createWriter("poses.txt");
-
 }
 
 void draw() {
